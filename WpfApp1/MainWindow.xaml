@@ -1,0 +1,223 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Label" x:Key="togreen">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="NavajoWhite"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsChecked,ElementName=color}" Value="True">
+                    <Setter Property="Foreground" Value="Green"/>
+
+                </DataTrigger>
+
+
+            </Style.Triggers>
+
+
+
+
+        </Style>
+        <Style TargetType="Label" x:Key="mosueH">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="FontSize" Value="22"/>
+                    <Setter Property="Foreground" Value="Honeydew"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+        <Style TargetType="Label" x:Key="visible">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Text.Lenght,ElementName=h}" Value="0">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+
+        </Style>
+        <Style TargetType="Button" x:Key="login">
+            <Setter Property="IsEnabled" Value="False"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Text.Lenght, ElementName=jelszo}" Value="3">
+                    <Setter Property="IsEnabled" Value="True" />
+
+                </DataTrigger>
+                
+            </Style.Triggers>
+
+        </Style>
+        <Style TargetType="Label" x:Key="darkMode">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="Wheat"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsChacked, ElementName=dark}" Value="True">
+                    <Setter Property="Background" Value="Gray"/>
+                    <Setter Property="Foreground" Value="Lime"/>
+
+                </DataTrigger>
+                
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Label" x:Key="password">
+            <Setter Property="Content" Value="jelszo megadva"/>
+            <Setter Property="Foreground" Value="Green"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Style.Triggers>
+                
+                
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Label" x:Key="copy">
+            <Setter Property="Content" Value="{Binding Text, UpdateSourceTrigger=PropertyChanged, ElementName=copyWord}"/>
+
+        </Style>
+        <!-- 6. feladat – Border háttérszínének módosítása -->
+        <!-- Hozz létre egy CheckBox és egy Border vezérlőt! -->
+        <!-- A CheckBox felirata legyen "Zöld háttér bekapcsolása"! -->
+        <!-- A Border szélessége legyen 250, magassága 120! -->
+        <!-- A Border alapértelmezett háttérszíne legyen LightGray! -->
+        <!-- Ha a CheckBox be van jelölve, a Border háttérszíne legyen LightGreen! -->
+        <!-- Ha nincs bejelölve, álljon vissza a LightGray háttérszín! -->
+        <!-- Használj Bindingot és DataTriggert! -->
+        <Style TargetType="Border" x:Key="greenBorder">
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Width" Value="250" />
+            <Setter Property="Height" Value="120" />
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsChecked, ElementName=greenCheck}" Value="True">
+                    <Setter Property="Background" Value="LightGreen"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <!-- 7. feladat – Button méretének változtatása -->
+        <!-- Hozz létre egy CheckBox és egy Button vezérlőt! -->
+        <!-- A CheckBox felirata legyen "Nagy gomb"! -->
+        <!-- A Button felirata legyen "Mentés"! -->
+        <!-- A Button alapértelmezett szélessége legyen 120! -->
+        <!-- A Button alapértelmezett magassága legyen 40! -->
+        <!-- A Button alapértelmezett betűmérete legyen 16! -->
+        <!-- Ha a CheckBox be van jelölve: -->
+        <!-- Szélesség: 220 -->
+        <!-- Magasság: 70 -->
+        <!-- Betűméret: 22 -->
+        <!-- Ha nincs bejelölve, álljanak vissza az eredeti értékek! -->
+        <!-- Használj Bindingot és DataTriggert! -->
+        <Style TargetType="Button" x:Key="bigButton">
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="16"/>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsChecked, ElementName=bigCheck}" Value="True">
+                    <Setter Property="Width" Value="220"/>
+                    <Setter Property="Height" Value="70"/>
+                    <Setter Property="FontSize" Value="22"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <!-- 8. feladat – ComboBox alapján változó felirat -->
+        <!-- Hozz létre egy ComboBox és egy Label vezérlőt! -->
+        <!-- A ComboBox elemei legyenek: Kezdő, Haladó, Profi! -->
+        <!-- A Label alapértelmezett felirata legyen "Válassz nehézségi szintet!"! -->
+        <!-- Ha a Kezdő van kiválasztva: -->
+        <!-- Felirat: "Kezdő szint kiválasztva" -->
+        <!-- Betűszín: Green -->
+        <!-- Ha a Haladó van kiválasztva: -->
+        <!-- Felirat: "Haladó szint kiválasztva" -->
+        <!-- Betűszín: Orange -->
+        <!-- Ha a Profi van kiválasztva: -->
+        <!-- Felirat: "Profi szint kiválasztva" -->
+        <!-- Betűszín: Red -->
+        <!-- Használj Bindingot és DataTriggert! -->
+        <Style TargetType="Label" x:Key="difficultyLabel">
+            <Setter Property="Content" Value="Válassz nehézségi szintet!"/>
+            <Setter Property="Foreground" Value="Black"/>
+
+            <Style.Triggers>
+
+                <DataTrigger Binding="{Binding SelectedItem.Content, ElementName=cbLevel}"
+                     Value="Kezdő">
+                    <Setter Property="Content" Value="Kezdő szint kiválasztva"/>
+                    <Setter Property="Foreground" Value="Green"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding SelectedItem.Content, ElementName=cbLevel}"
+                     Value="Haladó">
+                    <Setter Property="Content" Value="Haladó szint kiválasztva"/>
+                    <Setter Property="Foreground" Value="Orange"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding SelectedItem.Content, ElementName=cbLevel}"
+                     Value="Profi">
+                    <Setter Property="Content" Value="Profi szint kiválasztva"/>
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+
+            </Style.Triggers>
+        </Style>
+
+
+
+    </Window.Resources>
+    <StackPanel>
+
+        
+
+            <ComboBox x:Name="cbLevel" Width="150">
+                <ComboBoxItem Content="Kezdő"/>
+                <ComboBoxItem Content="Haladó"/>
+                <ComboBoxItem Content="Profi"/>
+            </ComboBox>
+
+            <Label Style="{StaticResource difficultyLabel}"
+           Margin="0,10,0,0"/>
+
+        
+        <CheckBox x:Name="bigCheck"
+              Content="Nagy gomb"
+              Margin="0,0,0,10" Checked="bigCheck_Checked"/>
+
+            <Button Content="Mentés"
+            Style="{StaticResource bigButton}"/>
+
+        
+        <TextBox x:Name="email"/>
+        <CheckBox Content="szinvalto" x:Name="color" Checked="color_Checked"/>
+        <Label Content="asd" Style="{StaticResource togreen}"/>
+        <Label Content="anyad" Style="{StaticResource mosueH}"/>
+        <TextBox x:Name="h" Text="dwdw&#xD;&#xA;"/>
+        <Label Content="Nem toltotted ki" Style="{StaticResource visible}"/>
+        <Border>
+            <CheckBox Content="legyen zod" x:Name="greenBorder" Checked="greenBorder_Checked">
+                
+            </CheckBox>
+        </Border>
+        
+
+            <CheckBox x:Name="greenCheck"
+              Content="Zöld háttér bekapcsolása"
+              Margin="0,0,0,10"/>
+
+            <Border Width="250"
+            Height="120"
+            Style="{StaticResource greenBorder}"
+            BorderBrush="Black"
+            BorderThickness="1"/>
+
+       
+    </StackPanel>
+
+</Window>
+
